@@ -1,4 +1,5 @@
 import mongoose, { Schema } from "mongoose";
+import { ICharacterDocument } from "../types/character";
 
 const characterSchema = new Schema({
   user: { type: Schema.Types.ObjectId, ref: "users", required: true },
@@ -8,6 +9,7 @@ const characterSchema = new Schema({
 });
 
 const Character =
-  mongoose.models.characters || mongoose.model("characters", characterSchema);
+  mongoose.models.characters ||
+  mongoose.model<ICharacterDocument>("characters", characterSchema);
 
 export default Character;

@@ -1,5 +1,6 @@
 import mongoose, { Schema } from "mongoose";
 import { stateSchema } from "./status";
+import { IRaceDocument } from "../types/race";
 
 const raceSchema = new Schema({
   name: { type: String, required: true },
@@ -7,6 +8,6 @@ const raceSchema = new Schema({
   base_state: { type: stateSchema, required: true },
 });
 
-const Race = mongoose.models.races || mongoose.model("races", raceSchema);
+const Race = mongoose.models.races || mongoose.model<IRaceDocument>("races", raceSchema);
 
 export default Race;
