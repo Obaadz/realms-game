@@ -10,10 +10,23 @@ export async function getUser(user: Pick<User, "email" | "password">) {
   if (!dbUser || dbUser.password !== user.password)
     throw new Error(ERROR_MESSAGES.INCORRECT_EMAIL_OR_PASSWORD);
 
-  await dbUser.populate("-password -age");
+  await dbUser.populate("email");
 
   return dbUser;
 }
 
-export function insertUser(user: User) {}
-export function updateUser(user: Partial<User>) {}
+export async function insertUser(user: User) {
+  const dbUser: IUserDocument = new UserModel({
+    email: user.email,
+    password: user.password,
+    age: user.age,
+  });
+
+  await dbUser.save();
+
+  await dbUser.populate("email");
+
+  return dbUser;
+}
+
+export async function updateUser(user: Partial<User>) {}
