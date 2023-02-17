@@ -1,5 +1,5 @@
 import jwtDecode from "jwt-decode";
-import { User } from "../types/users/User";
+import { User } from "../types/user";
 
 export default function (token: string) {
   try {

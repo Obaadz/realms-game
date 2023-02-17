@@ -2,14 +2,10 @@
 const nextConfig = {
   reactStrictMode: true,
   swcMinify: true,
-  compiler: {
-    // Enables the styled-components SWC transform
-    styledComponents: true,
+
+  env: {
+    BACKEND_URL: "http://localhost:5000",
   },
-  // env: {
-  //   DB_URI: "",
-  //   SECRET: "",
-  // },
 };
 
 module.exports = nextConfig;
