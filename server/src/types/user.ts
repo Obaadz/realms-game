@@ -5,7 +5,7 @@ export type User = {
   email: string;
   password: string;
   age: number;
-  characters: Character[];
+  characters?: Character[];
 };
 
 export interface IUserDocument extends Document, User {}
