@@ -5,6 +5,7 @@ export const userSchema = new Schema({
   email: { type: String, required: true, unique: true },
   password: { type: String, required: true },
   age: { type: Number, required: true },
+  characters: { type: [Schema.Types.ObjectId], ref: "characters" },
 });
 
 const User = mongoose.models.users || mongoose.model<IUserDocument>("users", userSchema);

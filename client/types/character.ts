@@ -1,4 +1,3 @@
-import { Document } from "mongoose";
 import { Race } from "./race";
 
 export type Character = {
@@ -6,5 +5,3 @@ export type Character = {
   name: string;
   description: string;
 };
-
-export interface ICharacterDocument extends Document, Character {}
