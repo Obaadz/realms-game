@@ -56,4 +56,25 @@ export default class UserController {
       response.status(401).send(err.message || ERROR_MESSAGES.SERVER_ERROR);
     }
   }
+
+  static async verify(request: Request, response: Response) {
+    const SECRET = process.env.SECRET;
+
+    if (!SECRET) {
+      console.log(ERROR_MESSAGES.NO_SECRET_KEY_DEFINED);
+      throw new Error(ERROR_MESSAGES.SERVER_ERROR);
+    }
+
+    const token: string | null = request.body.token;
+
+    try {
+      if (!token) throw new Error(ERROR_MESSAGES.NOT_LOGGED_IN);
+
+      const user = jwt.verify(token, SECRET);
+
+      response.status(201).send("Authenticated");
+    } catch (err: any) {
+      response.status(401).send(err.message || ERROR_MESSAGES.SERVER_ERROR);
+    }
+  }
 }
