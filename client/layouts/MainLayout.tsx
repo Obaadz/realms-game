@@ -8,7 +8,10 @@ type Props = {
 
 const MainLayout: NextComponentType<AppContext, AppProps, Props> = ({ children }) => {
   return (
-    <div className="h-screen w-screen bg-game bg-cover bg-center bg-no-repeat text-3xl">
+    <div
+      className="h-screen w-screen bg-game bg-cover bg-center bg-no-repeat py-5 lg:px-64"
+      dir="rtl"
+    >
       {children}
     </div>
   );
