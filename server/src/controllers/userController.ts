@@ -4,6 +4,8 @@ import { ERROR_MESSAGES } from "../types/enums";
 import { getUser, insertUser } from "../services/users";
 import { User } from "../types/user";
 
+const TOKEN_EXPIRE_IN_MS = Number(process.env.TOKEN_EXPIRE_IN_MS) || 2_629_746_000;
+
 export default class UserController {
   static async login(request: Request, response: Response) {
     const SECRET = process.env.SECRET;
@@ -13,7 +15,7 @@ export default class UserController {
       throw new Error(ERROR_MESSAGES.SERVER_ERROR);
     }
 
-    const user: Pick<User, "email" | "password"> = request.body;
+    const user: Pick<User, "email" | "password"> = request.body.user;
 
     try {
       if (!(user?.email && user?.password))
@@ -23,7 +25,10 @@ export default class UserController {
 
       const token = jwt.sign(dbUser.toObject(), SECRET);
 
-      response.cookie("token", token).status(201).send("Authenticated");
+      response
+        .cookie("token", token, { maxAge: TOKEN_EXPIRE_IN_MS })
+        .status(201)
+        .send("Authenticated");
     } catch (err: any) {
       response.status(401).send(err.message || ERROR_MESSAGES.SERVER_ERROR);
     }
@@ -37,7 +42,7 @@ export default class UserController {
       throw new Error(ERROR_MESSAGES.SERVER_ERROR);
     }
 
-    const user: User = request.body;
+    const user: User = request.body.user;
 
     try {
       if (!(user && user.email && user.password && user.age))
@@ -51,7 +56,10 @@ export default class UserController {
 
       const token = jwt.sign(dbUser.toObject(), SECRET);
 
-      response.cookie("token", token).status(201).send("Authenticated");
+      response
+        .cookie("token", token, { maxAge: TOKEN_EXPIRE_IN_MS })
+        .status(201)
+        .send("Authenticated");
     } catch (err: any) {
       response.status(401).send(err.message || ERROR_MESSAGES.SERVER_ERROR);
     }
