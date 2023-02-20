@@ -3,21 +3,20 @@ import { NextComponentType } from "next";
 import { AppContext, AppProps } from "next/app";
 import { useRouter } from "next/router";
 import { useForm } from "react-hook-form";
-import { ERROR_MESSAGES } from "../../../types/enums";
-import { User } from "../../../types/user";
-import Button from "../../Button";
-import ErrorSpan from "../../ErrorSpan";
+import { ERROR_MESSAGES } from "../../../../types/enums";
+import { User } from "../../../../types/user";
+import Button from "../../../Button";
+import ErrorSpan from "../../../ErrorSpan";
 import Email from "../Email";
 import Link from "../Link";
 import Password from "../Password";
-import AuthForm from "../ِAuthForm";
-import Age from "./Age";
+import AuthForm from "../AuthForm";
 
 const BACKEND_URL = process.env.BACKEND_URL as string;
 
 type Props = {};
 
-const RegisterForm: NextComponentType<AppContext, AppProps, Props> = () => {
+const LoginForm: NextComponentType<AppContext, AppProps, Props> = () => {
   const router = useRouter();
   const {
     register,
@@ -32,7 +31,7 @@ const RegisterForm: NextComponentType<AppContext, AppProps, Props> = () => {
       handleSubmit={handleSubmit(async (userForm) => {
         try {
           const response = await axios.post(
-            `${BACKEND_URL}/v1/users/register`,
+            `${BACKEND_URL}/v1/users/login`,
             {
               user: userForm,
             },
@@ -41,8 +40,10 @@ const RegisterForm: NextComponentType<AppContext, AppProps, Props> = () => {
             }
           );
         } catch (err: any) {
-          if (err?.response?.data === ERROR_MESSAGES.DUPLICATE)
-            setError("email", { message: "هذا الايميل مستخدم بالفعل" });
+          if (err?.response?.data === ERROR_MESSAGES.INCORRECT_EMAIL_OR_PASSWORD)
+            setError("serverError" as any, {
+              message: "الايميل الالكتروني او كلمة المرور غير صحيحه",
+            });
           else setError("serverError" as any, { message: "حدث خطأ غير معروف" });
         }
       })}
@@ -52,13 +53,13 @@ const RegisterForm: NextComponentType<AppContext, AppProps, Props> = () => {
         register={register}
         passwordError={errors.password}
         clearErrors={clearErrors}
+        autoComplete="current-password"
       />
-      <Age register={register} ageError={errors.age} clearErrors={clearErrors} />
       {(errors as any)?.serverError && <ErrorSpan error={(errors as any).serverError} />}
-      <Link href="login">تسجيل الدخول</Link>
-      <Button>تسجيل</Button>
+      <Link href="register">حساب جديد</Link>
+      <Button isDisabled={isSubmitting}>دخول</Button>
     </AuthForm>
   );
 };
 
-export default RegisterForm;
+export default LoginForm;

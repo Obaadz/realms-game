@@ -1,8 +1,9 @@
 import { NextComponentType } from "next";
 import { AppContext, AppProps } from "next/app";
+import { useEffect } from "react";
 import { UseFormRegister, FieldError, UseFormClearErrors } from "react-hook-form";
-import { User } from "../../../types/user";
-import ErrorSpan from "../../ErrorSpan";
+import { User } from "../../../../types/user";
+import ErrorSpan from "../../../ErrorSpan";
 
 type Props = {
   register: UseFormRegister<Partial<User>>;
@@ -15,12 +16,24 @@ const Age: NextComponentType<AppContext, AppProps, Props> = ({
   ageError,
   clearErrors,
 }) => {
+  useEffect(() => {
+    const input: HTMLInputElement | null = document.querySelector("input[type=number]");
+
+    input?.addEventListener("input", handleInputOnlyNumber);
+
+    return function cleanUp() {
+      input?.removeEventListener("input", handleInputOnlyNumber);
+    };
+  }, []);
+
   return (
     <>
       <input
         type="number"
+        inputMode="numeric"
+        pattern="[0-9]+"
         placeholder="العمر"
-        className=" appearance-none rounded-md bg-[#D4B4A3] py-1 px-2 text-[#171718] placeholder:text-[#171718aa] focus:outline-none"
+        className="rounded-md bg-[#D4B4A3] py-1 px-2 text-[#171718] placeholder:text-[#171718aa] focus:outline-none"
         {...register("age", {
           required: "العمر مطلوب",
           valueAsNumber: true,
@@ -36,5 +49,11 @@ const Age: NextComponentType<AppContext, AppProps, Props> = ({
     </>
   );
 };
+
+function handleInputOnlyNumber(e: any) {
+  if (Number.isNaN(e?.target?.valueAsNumber)) {
+    e.target.value = "";
+  }
+}
 
 export default Age;

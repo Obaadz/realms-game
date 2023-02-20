@@ -1,8 +1,8 @@
 import { NextComponentType } from "next";
 import { AppContext, AppProps } from "next/app";
 import { FieldError, UseFormClearErrors, UseFormRegister } from "react-hook-form";
-import { User } from "../../types/user";
-import ErrorSpan from "../ErrorSpan";
+import { User } from "../../../types/user";
+import ErrorSpan from "../../ErrorSpan";
 
 type Props = {
   register: UseFormRegister<Partial<User>>;
