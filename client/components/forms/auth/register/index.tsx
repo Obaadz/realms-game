@@ -19,6 +19,7 @@ type Props = {};
 
 const RegisterForm: NextComponentType<AppContext, AppProps, Props> = () => {
   const router = useRouter();
+
   const {
     register,
     handleSubmit,
@@ -31,6 +32,7 @@ const RegisterForm: NextComponentType<AppContext, AppProps, Props> = () => {
     <AuthForm
       handleSubmit={handleSubmit(async (userForm) => {
         try {
+          console.info("BEFORE RESPONSE");
           const response = await axios.post(
             `${BACKEND_URL}/v1/users/register`,
             {
@@ -40,6 +42,9 @@ const RegisterForm: NextComponentType<AppContext, AppProps, Props> = () => {
               withCredentials: true,
             }
           );
+          console.info("AFTER RESPONSE");
+
+          await router.replace("/game");
         } catch (err: any) {
           if (err?.response?.data === ERROR_MESSAGES.DUPLICATE)
             setError("email", { message: "هذا الايميل مستخدم بالفعل" });

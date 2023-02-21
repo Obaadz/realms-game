@@ -18,6 +18,7 @@ type Props = {};
 
 const LoginForm: NextComponentType<AppContext, AppProps, Props> = () => {
   const router = useRouter();
+
   const {
     register,
     handleSubmit,
@@ -30,6 +31,7 @@ const LoginForm: NextComponentType<AppContext, AppProps, Props> = () => {
     <AuthForm
       handleSubmit={handleSubmit(async (userForm) => {
         try {
+          console.info("BEFORE RESPONSE");
           const response = await axios.post(
             `${BACKEND_URL}/v1/users/login`,
             {
@@ -39,6 +41,9 @@ const LoginForm: NextComponentType<AppContext, AppProps, Props> = () => {
               withCredentials: true,
             }
           );
+          console.info("AFTER RESPONSE");
+
+          await router.replace("/game");
         } catch (err: any) {
           if (err?.response?.data === ERROR_MESSAGES.INCORRECT_EMAIL_OR_PASSWORD)
             setError("serverError" as any, {

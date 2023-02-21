@@ -12,7 +12,10 @@ module.exports = {
         amiri: ["Amiri", "ui-sans-serif"],
         lalezar: ["Lalezar", "cursive"],
       },
+      dropShadow: {
+        border: "0 1.2px 1.2px rgba(0, 0, 0, 0.8)",
+      },
     },
+    plugins: [],
   },
-  plugins: [],
 };
