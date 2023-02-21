@@ -1,5 +1,5 @@
 import type { NextPage } from "next";
-import LoginForm from "../../components/forms/login";
+import LoginForm from "../../components/forms/auth/login";
 import H2 from "../../components/H2";
 import AuthLayout from "../../layouts/AuthLayout";
 

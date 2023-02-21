@@ -25,4 +25,15 @@ export async function insertUser(user: User) {
   return getUser(dbUser);
 }
 
+export async function isUserHasCharacter(user: Partial<User>) {
+  const dbUser = (await UserModel.findOne(
+    { email: user.email },
+    { characters: 1 }
+  )) as Pick<IUserDocument, "characters">;
+
+  const charactersLength = dbUser.characters?.length;
+
+  return charactersLength ? true : false;
+}
+
 export async function updateUser(user: Partial<User>) {}

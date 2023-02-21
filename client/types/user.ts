@@ -5,4 +5,5 @@ export type User = {
   password: string;
   age: number;
   characters?: Character[];
+  crystal: Number;
 };

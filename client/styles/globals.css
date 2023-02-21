@@ -4,3 +4,15 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* Chrome & Safari */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+		display: none;
+}
+
+/* Firefox */
+input[type=number] {
+		-moz-appearance: textfield;
+		appearance: textfield;
+}
