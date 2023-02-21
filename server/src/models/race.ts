@@ -1,5 +1,5 @@
 import mongoose, { Schema } from "mongoose";
-import { stateSchema } from "./status";
+import stateSchema from "./schemas/state";
 import { IRaceDocument } from "../types/race";
 
 const raceSchema = new Schema({
