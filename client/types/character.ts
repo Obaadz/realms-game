@@ -8,6 +8,9 @@ export type Character = {
   name: string;
   description: string;
   image: String;
+  experience: number;
+  experience_percentage: number;
+  level: number;
   state: State;
   inventory: Inventory;
   equipment: Equipment;
