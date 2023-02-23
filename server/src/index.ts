@@ -7,7 +7,8 @@ import v1Routes from "./routes/v1/index";
 config({ path: ".env.local" });
 
 const PORT = process.env.PORT || 5000,
-  DB_URI = process.env.DB_URI || "";
+  DB_URI = process.env.DB_URI || "",
+  LEVELS = [0, 0, 150, 480, 1080, 1970, 3070, 4380, 6190, 8510, 11280, 1362000];
 
 const app = express();
 const bodyParser = {
@@ -27,3 +28,5 @@ app.listen(PORT, () => {
   mongoose.set("strictQuery", false);
   mongoose.connect(DB_URI);
 });
+
+export { LEVELS };

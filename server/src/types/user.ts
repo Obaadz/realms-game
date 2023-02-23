@@ -7,6 +7,7 @@ export type User = {
   password: string;
   age: number;
   characters?: Character[];
+  current_character: Character;
   crystal: Number;
 };
 
