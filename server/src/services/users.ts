@@ -2,7 +2,17 @@ import { ERROR_MESSAGES } from "../types/enums";
 import type { IUserDocument, User } from "../types/user";
 import UserModel from "../models/user";
 
-export async function getUser(user: Pick<User, "email" | "password">) {
+export async function getUser(user: Pick<User, "email">, selectedItems?: string) {
+  const dbUser: IUserDocument | null = await UserModel.findOne({
+    email: user.email,
+  }).select(selectedItems ? selectedItems : "email");
+
+  if (!dbUser) throw new Error(ERROR_MESSAGES.INCORRECT_EMAIL);
+
+  return dbUser;
+}
+
+export async function getUserAndCheckPassword(user: Pick<User, "email" | "password">) {
   const dbUser: IUserDocument | null = await UserModel.findOne({
     email: user.email,
     password: user.password,

@@ -1,7 +1,11 @@
 import type { Request, Response } from "express";
 import jwt from "jsonwebtoken";
 import { ERROR_MESSAGES } from "../types/enums";
-import { isUserHasCharacter, getUser, insertUser } from "../services/users";
+import {
+  isUserHasCharacter,
+  getUserAndCheckPassword,
+  insertUser,
+} from "../services/users";
 import { User, UserFromToken } from "../types/user";
 
 const TOKEN_EXPIRE_IN_MS = Number(process.env.TOKEN_EXPIRE_IN_MS) || 2_629_746_000;
@@ -21,7 +25,7 @@ export default class UserController {
       if (!(user?.email && user?.password))
         throw new Error(ERROR_MESSAGES.INCORRECT_EMAIL_OR_PASSWORD);
 
-      const dbUser = await getUser(user);
+      const dbUser = await getUserAndCheckPassword(user);
 
       const token = jwt.sign(dbUser.toObject(), SECRET);
 
