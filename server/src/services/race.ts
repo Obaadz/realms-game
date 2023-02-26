@@ -1,17 +1,16 @@
 import { ERROR_MESSAGES } from "../types/enums";
 import { IRaceDocument, Race } from "../types/race";
 import RaceModel from "../models/race";
-import { FilterQuery } from "mongoose";
-import { insertState } from "./state";
-import { State } from "../types/state";
+import { FilterQuery, PopulateOption } from "mongoose";
 
 export async function findRace(
   query: FilterQuery<IRaceDocument>,
-  selectedItems?: string | string[]
+  selectedItems?: string | string[],
+  populateOptions?: PopulateOption["populate"]
 ) {
-  const dbRace: IRaceDocument | null = await RaceModel.findOne(query).select(
-    selectedItems ? selectedItems : undefined
-  );
+  const dbRace = (await RaceModel.findOne(query)
+    .select(selectedItems ? selectedItems : undefined)
+    .populate(populateOptions || ("" as any))) as IRaceDocument | null;
 
   if (!dbRace) throw new Error(ERROR_MESSAGES.ERROR_ON_FINDING_RACE);
 
@@ -20,11 +19,12 @@ export async function findRace(
 
 export async function findRaces(
   query: FilterQuery<IRaceDocument>,
-  selectedItems?: string | string[]
+  selectedItems?: string | string[],
+  populateOptions?: PopulateOption["populate"]
 ) {
-  const dbRaces: IRaceDocument[] = await RaceModel.find(query).select(
-    selectedItems ? selectedItems : undefined
-  );
+  const dbRaces: IRaceDocument[] = await RaceModel.find(query)
+    .select(selectedItems ? selectedItems : undefined)
+    .populate(populateOptions || ("" as any));
 
   return dbRaces;
 }

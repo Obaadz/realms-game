@@ -3,12 +3,24 @@ import { ERROR_MESSAGES } from "../types/enums";
 import { IRaceDocument, Race } from "../types/race";
 import { JwtAuthExpressRequest } from "../middleware/jwtAuth";
 import { UserFromToken } from "../types/user";
-import { deleteRace, insertRace } from "../services/race";
+import { deleteRace, findRaces, insertRace } from "../services/race";
 import { insertState } from "../services/state";
 import { State } from "../types/state";
-import { Types } from "mongoose";
 
 export default class RaceController {
+  static async get(request: JwtAuthExpressRequest<UserFromToken>, response: Response) {
+    try {
+      const user = request.auth;
+
+      if (!user?.email) throw new Error(ERROR_MESSAGES.INCORRECT_EMAIL);
+
+      const dbRaces = await findRaces({}, "-__v", { path: "base_state", select: "-__v" });
+
+      response.status(200).send({ races: dbRaces });
+    } catch (err: any) {
+      response.status(401).send(err.message || ERROR_MESSAGES.SERVER_ERROR);
+    }
+  }
   static async create(request: JwtAuthExpressRequest<UserFromToken>, response: Response) {
     try {
       const race: Race = request.body.race,
