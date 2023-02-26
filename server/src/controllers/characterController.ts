@@ -1,8 +1,8 @@
 import type { Response } from "express";
 import { ERROR_MESSAGES } from "../types/enums";
-import { InitialCharacter } from "../types/character";
+import { ICharacterDocument, InitialCharacter } from "../types/character";
 import { JwtAuthExpressRequest } from "../middleware/jwtAuth";
-import { IUserDocument, UserFromToken } from "../types/user";
+import { UserFromToken } from "../types/user";
 import { countUserCharacters } from "../services/user";
 import { deleteCharacter, insertCharacter } from "../services/character";
 
@@ -26,6 +26,8 @@ export default class CharacterController {
       await insertCharacter(character).catch((err: any) => {
         if (err?.code === 11000) throw new Error(ERROR_MESSAGES.DUPLICATE);
 
+        console.log("Insert Character:", err.message);
+
         throw new Error(ERROR_MESSAGES.INCORRECT_CHARACTER_INPUTS);
       });
 
@@ -37,7 +39,7 @@ export default class CharacterController {
 
   static async delete(request: JwtAuthExpressRequest<UserFromToken>, response: Response) {
     try {
-      const character: Pick<IUserDocument, "_id"> = request.body.character,
+      const character: Pick<ICharacterDocument, "_id"> = request.body.character,
         user = request.auth;
 
       if (!user?.email) throw new Error(ERROR_MESSAGES.INCORRECT_EMAIL);

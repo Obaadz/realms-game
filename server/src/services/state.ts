@@ -23,7 +23,7 @@ export async function insertState(state: State) {
 
   await dbState.save();
 
-  return findState({ _id: dbState._id }, ["-_id"]);
+  return findState({ _id: dbState._id });
 }
 
 export async function updateState(state: Partial<IStateDocument>) {

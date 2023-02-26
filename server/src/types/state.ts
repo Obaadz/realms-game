@@ -1,9 +1,9 @@
 import { Document } from "mongoose";
 
 export type State = {
-  health: Number;
-  defense: Number;
-  attack: Number;
-  magic: Number;
+  health: number;
+  defense: number;
+  attack: number;
+  magic: number;
 };
 export interface IStateDocument extends Document, State {}

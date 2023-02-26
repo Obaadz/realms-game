@@ -55,7 +55,7 @@ export default class UserController {
 
       const dbUser = await insertUser(user).catch((err: any) => {
         if (err?.code === 11000) throw new Error(ERROR_MESSAGES.DUPLICATE);
-
+        console.log("TEST");
         throw new Error(ERROR_MESSAGES.INCORRECT_REGISTER_DATA);
       });
 
