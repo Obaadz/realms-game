@@ -5,7 +5,7 @@ import getLevelByTotalExp from "../utils/getLevelByTotalExp";
 
 const characterSchema = new Schema({
   race: { type: Schema.Types.ObjectId, ref: "races", required: true },
-  name: { type: String, required: true },
+  name: { type: String, required: true, unique: true },
   description: { type: String, required: true },
   image: { type: String, required: true },
   experience: { type: Number, default: 0, required: true },
