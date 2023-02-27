@@ -1,9 +1,7 @@
 import { ERROR_MESSAGES } from "../types/enums";
-import { ICharacterDocument, Character, InitialCharacter } from "../types/character";
+import { ICharacterDocument, InitialCharacter } from "../types/character";
 import CharacterModel from "../models/character";
 import { FilterQuery } from "mongoose";
-import { findRace } from "./race";
-import { Race } from "../types/race";
 
 export async function findCharacter(
   query: FilterQuery<ICharacterDocument>,
@@ -19,15 +17,13 @@ export async function findCharacter(
 }
 
 export async function insertCharacter(character: InitialCharacter) {
-  // TODO: Add default values for other properities
-  const dbCharacter: ICharacterDocument = new CharacterModel<InitialCharacter>({
+  const dbCharacter: ICharacterDocument = new CharacterModel({
     ...character,
-    race: await findRace({ name: (character.race as Partial<Race>).name }),
   });
 
   await dbCharacter.save();
 
-  return findCharacter({ _id: dbCharacter._id }, ["-_id"]);
+  return findCharacter({ _id: dbCharacter._id });
 }
 
 export async function updateCharacter(character: Partial<ICharacterDocument>) {

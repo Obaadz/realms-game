@@ -1,7 +1,7 @@
 import { ERROR_MESSAGES } from "../types/enums";
 import type { IUserDocument, User } from "../types/user";
 import UserModel from "../models/user";
-import { FilterQuery } from "mongoose";
+import { FilterQuery, UpdateQuery } from "mongoose";
 
 export async function findUser(
   query: FilterQuery<IUserDocument>,
@@ -42,8 +42,11 @@ export async function logoutUser(user: Pick<User, "email">) {
   await UserModel.updateOne({ email: user.email }, { $unset: { current_character: 1 } });
 }
 
-export async function updateUser(user: Partial<User>) {
-  await UserModel.updateOne({ user: user.email }, { $set: { ...user } });
+export async function updateUser(
+  query: FilterQuery<IUserDocument>,
+  update: UpdateQuery<IUserDocument>
+) {
+  await UserModel.updateOne(query, update);
 }
 
 export async function deleteUser(user: Pick<User, "email">) {
