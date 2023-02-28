@@ -3,9 +3,9 @@ import { Character } from "./character";
 import { Item } from "./item";
 
 export type Inventory = {
-  character: Character | Types.ObjectId;
   items: { quantity: Number; item: Item | Types.ObjectId }[];
-  max: number;
+  character?: Character | Types.ObjectId;
+  max?: number;
 };
 
 export interface IInventoryDocument extends Document, Inventory {}

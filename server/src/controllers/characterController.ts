@@ -53,9 +53,7 @@ export default class CharacterController {
       if (!user?.email) throw new Error(ERROR_MESSAGES.INCORRECT_EMAIL);
       if (!character._id) throw new Error(ERROR_MESSAGES.INCORRECT_CHARACTER_INPUTS);
 
-      await deleteCharacter(character).catch((err: any) => {
-        throw new Error(ERROR_MESSAGES.INCORRECT_CHARACTER_INPUTS);
-      });
+      await updateUser({ email: user.email }, { $pull: { characters: character._id } });
 
       response.status(204).send("Character Deleted");
     } catch (err: any) {

@@ -5,7 +5,7 @@ const DEFAULT_INVENTORY_SIZE = process.env.DEFAULT_INVENTORY_SIZE || 10;
 
 const inventorySchema = new Schema({
   max: { type: Number, default: DEFAULT_INVENTORY_SIZE },
-  character: { type: mongoose.Types.ObjectId, ref: "characters", required: true },
+  character: { type: mongoose.Types.ObjectId, ref: "characters" },
   items: [{ quantity: Number, item: { type: mongoose.Types.ObjectId, ref: "items" } }],
 });
 
