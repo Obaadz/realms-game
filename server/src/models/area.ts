@@ -1,10 +1,9 @@
 import mongoose, { Schema } from "mongoose";
 import { IAreaDocument } from "../types/area";
 import requirementSchema from "./schemas/requirement";
-import rewardSchema from "./schemas/reward";
 
 const areaSchema = new Schema({
-  name: { type: { type: String, required: true }, required: true },
+  name: { type: String, required: true, unique: true },
   type: { type: String, required: true },
   description: { type: String, required: true },
   image: { type: String, required: true },
