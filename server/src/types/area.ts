@@ -8,6 +8,7 @@ export type Area = {
   description: string;
   image: String;
   location?: { x: number; y: number };
+  level?: number;
   places?: Types.ObjectId[] | Place[];
   isOpen?: boolean;
   requirements?: { level?: number; items: Types.ObjectId[] | Item[] };

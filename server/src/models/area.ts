@@ -13,7 +13,6 @@ const areaSchema = new Schema({
   places: [{ type: Schema.Types.ObjectId, ref: "places" }],
   isOpen: Boolean,
   requirements: requirementSchema,
-  rewards: [rewardSchema],
 });
 
 const Area = mongoose.models.areas || mongoose.model<IAreaDocument>("areas", areaSchema);

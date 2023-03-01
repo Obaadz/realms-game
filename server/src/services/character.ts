@@ -1,7 +1,7 @@
 import { ERROR_MESSAGES } from "../types/enums";
 import { ICharacterDocument, InitialCharacter } from "../types/character";
 import CharacterModel from "../models/character";
-import { FilterQuery } from "mongoose";
+import { FilterQuery, UpdateQuery } from "mongoose";
 
 export async function findCharacter(
   query: FilterQuery<ICharacterDocument>,
@@ -26,8 +26,11 @@ export async function insertCharacter(character: InitialCharacter) {
   return findCharacter({ _id: dbCharacter._id });
 }
 
-export async function updateCharacter(character: Partial<ICharacterDocument>) {
-  await CharacterModel.updateOne({ _id: character._id }, { $set: { ...character } });
+export async function updateCharacter(
+  query: FilterQuery<ICharacterDocument>,
+  update: UpdateQuery<ICharacterDocument>
+) {
+  await CharacterModel.updateOne(query, update);
 }
 
 export async function deleteCharacter(character: Partial<ICharacterDocument>) {
