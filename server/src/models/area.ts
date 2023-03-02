@@ -10,7 +10,6 @@ const areaSchema = new Schema({
   location: { x: Number, y: Number },
   level: Number,
   places: [{ type: Schema.Types.ObjectId, ref: "places" }],
-  isOpen: Boolean,
   requirements: requirementSchema,
 });
 

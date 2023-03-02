@@ -10,7 +10,6 @@ const placeSchema = new Schema({
   image: { type: String, required: true },
   location: { x: Number, y: Number },
   level: Number,
-  isOpen: Boolean,
   requirements: requirementSchema,
   inventory: Types.ObjectId,
   rewards: [rewardSchema],

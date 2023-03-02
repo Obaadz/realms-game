@@ -10,7 +10,6 @@ export type Place = {
   image: string;
   location?: { x: number; y: number };
   level?: number;
-  isOpen?: boolean;
   requirements?: { level?: number; items: Types.ObjectId[] | Item[] };
   inventory?: Types.ObjectId | Inventory;
   rewards?: Reward[];
