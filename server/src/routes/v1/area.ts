@@ -4,7 +4,7 @@ import { jwtAuthExpress } from "../../middleware/jwtAuth";
 
 const areaRoutes = express.Router();
 
-areaRoutes.post("/area", jwtAuthExpress, AreaController.create);
-areaRoutes.delete("/area", jwtAuthExpress, AreaController.delete);
+areaRoutes.post("/areas", jwtAuthExpress, AreaController.create);
+areaRoutes.delete("/areas", jwtAuthExpress, AreaController.delete);
 
 export default areaRoutes;

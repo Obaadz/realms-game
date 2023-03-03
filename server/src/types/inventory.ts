@@ -11,6 +11,6 @@ export type Inventory = {
 export interface IInventoryDocument extends Document, Inventory {}
 
 export type InitialInventory = {
-  character: Types.ObjectId;
+  character?: Types.ObjectId;
   max?: number;
 };

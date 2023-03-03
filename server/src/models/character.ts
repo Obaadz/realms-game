@@ -14,9 +14,9 @@ const characterSchema = new Schema({
   description: { type: String, required: true },
   image: { type: String, required: true },
   experience: { type: Number, default: 0 },
-  state: { type: mongoose.Types.ObjectId, ref: "status" },
-  inventory: { type: mongoose.Types.ObjectId, ref: "inventories" },
-  equipment: { type: mongoose.Types.ObjectId, ref: "equipments" },
+  state: { type: Schema.Types.ObjectId, ref: "status" },
+  inventory: { type: Schema.Types.ObjectId, ref: "inventories" },
+  equipment: { type: Schema.Types.ObjectId, ref: "equipments" },
 });
 
 characterSchema.post("save", async function (this: ICharacterDocument) {

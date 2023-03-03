@@ -4,7 +4,7 @@ import { jwtAuthExpress } from "../../middleware/jwtAuth";
 
 const placeRoutes = express.Router();
 
-placeRoutes.post("/place", jwtAuthExpress, PlaceController.create);
-placeRoutes.delete("/place", jwtAuthExpress, PlaceController.delete);
+placeRoutes.post("/places", jwtAuthExpress, PlaceController.create);
+placeRoutes.delete("/places", jwtAuthExpress, PlaceController.delete);
 
 export default placeRoutes;
