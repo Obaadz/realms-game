@@ -3,6 +3,7 @@ import jwt from "jsonwebtoken";
 import { ERROR_MESSAGES } from "../types/enums";
 import { findUser, isUserHasCharacter, insertUser } from "../services/user";
 import { User, UserFromToken } from "../types/user";
+import { JwtAuthExpressRequest } from "../middleware/jwtAuth";
 
 const TOKEN_EXPIRE_IN_MS = Number(process.env.TOKEN_EXPIRE_IN_MS) || 2_629_746_000; // 1 month;
 
@@ -70,31 +71,18 @@ export default class UserController {
     }
   }
 
-  static async verify(request: Request, response: Response) {
+  static async get(request: JwtAuthExpressRequest<UserFromToken>, response: Response) {
     try {
-      const SECRET = process.env.SECRET;
+      const userId = request.params.id,
+        authUser = request.auth;
 
-      if (!SECRET) {
-        console.log(ERROR_MESSAGES.NO_SECRET_KEY_DEFINED);
-        throw new Error(ERROR_MESSAGES.SERVER_ERROR);
-      }
+      if (userId !== authUser?._id) throw new Error(ERROR_MESSAGES.INCORRECT_TOKEN);
 
-      const token: string | null = request.body.token,
-        queryIsUserHasCharacter = Boolean(request.query.isUserHasCharacter)
-          ? true
-          : false;
+      const dbUser = await findUser({ _id: userId }, "-password -__v");
 
-      if (!token) throw new Error(ERROR_MESSAGES.NOT_LOGGED_IN);
+      if (!dbUser) throw new Error(ERROR_MESSAGES.INCORRECT_EMAIL);
 
-      const user = jwt.verify(token, SECRET) as UserFromToken;
-
-      if (!user.email) throw new Error(ERROR_MESSAGES.INCORRECT_TOKEN);
-
-      if (queryIsUserHasCharacter)
-        response
-          .status(200)
-          .send({ isUserHasCharacter: await isUserHasCharacter({ email: user.email }) });
-      else response.status(200).send("Authenticated");
+      response.status(200).send(dbUser);
     } catch (err: any) {
       response.status(401).send(err.message || ERROR_MESSAGES.SERVER_ERROR);
     }
