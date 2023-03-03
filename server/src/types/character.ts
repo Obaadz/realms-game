@@ -8,7 +8,7 @@ export type Character = {
   race: Race | Types.ObjectId;
   name: string;
   description: string;
-  image: String;
+  image: string;
   experience: number;
   experience_percentage: number;
   level: number;

@@ -6,7 +6,7 @@ export type Area = {
   name: string;
   type: string;
   description: string;
-  image: String;
+  image: string;
   location?: { x: number; y: number };
   level?: number;
   places?: Types.ObjectId[] | Place[];

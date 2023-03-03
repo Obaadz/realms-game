@@ -8,7 +8,7 @@ export type User = {
   age: number;
   characters?: (Character | Types.ObjectId)[];
   current_character: Character | Types.ObjectId;
-  crystal: Number;
+  crystal: number;
 };
 
 export type UserFromToken = JwtPayload & Pick<Partial<User>, "email">;
