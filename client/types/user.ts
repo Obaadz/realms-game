@@ -1,10 +1,11 @@
 import { Character } from "./character";
 
 export type User = {
+  _id: string;
   email: string;
   password: string;
   age: number;
-  characters?: Character[];
-  current_character?: Character;
-  crystal: Number;
+  characters?: (Character | string)[];
+  current_character: Character | string;
+  crystal: number;
 };

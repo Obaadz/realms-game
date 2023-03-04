@@ -10,7 +10,7 @@ import ErrorSpan from "../../../ErrorSpan";
 import Email from "../Email";
 import Link from "../Link";
 import Password from "../Password";
-import AuthForm from "../AuthForm";
+import CustomForm from "../../CustomForm";
 
 const BACKEND_URL = process.env.BACKEND_URL as string;
 
@@ -28,7 +28,7 @@ const LoginForm: NextComponentType<AppContext, AppProps, Props> = () => {
   } = useForm<Partial<User>>();
 
   return (
-    <AuthForm
+    <CustomForm
       handleSubmit={handleSubmit(async (userForm) => {
         try {
           console.info("BEFORE RESPONSE");
@@ -63,7 +63,7 @@ const LoginForm: NextComponentType<AppContext, AppProps, Props> = () => {
       {(errors as any)?.serverError && <ErrorSpan error={(errors as any).serverError} />}
       <Link href="register">حساب جديد</Link>
       <Button isDisabled={isSubmitting}>دخول</Button>
-    </AuthForm>
+    </CustomForm>
   );
 };
 

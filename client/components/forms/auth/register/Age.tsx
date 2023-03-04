@@ -3,6 +3,7 @@ import { AppContext, AppProps } from "next/app";
 import { useEffect } from "react";
 import { UseFormRegister, FieldError, UseFormClearErrors } from "react-hook-form";
 import { User } from "../../../../types/user";
+import handleInputOnlyNumber from "../../../../utils/handleInputOnlyNumber";
 import ErrorSpan from "../../../ErrorSpan";
 
 type Props = {
@@ -49,11 +50,5 @@ const Age: NextComponentType<AppContext, AppProps, Props> = ({
     </>
   );
 };
-
-function handleInputOnlyNumber(e: any) {
-  if (Number.isNaN(e?.target?.valueAsNumber)) {
-    e.target.value = "";
-  }
-}
 
 export default Age;

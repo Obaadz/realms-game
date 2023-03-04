@@ -1,6 +1,7 @@
 export type State = {
-  health: Number;
-  defense: Number;
-  attack: Number;
-  magic: Number;
+  _id: string;
+  health: number;
+  defense: number;
+  attack: number;
+  magic: number;
 };

@@ -4,14 +4,15 @@ import { Race } from "./race";
 import { State } from "./state";
 
 export type Character = {
-  race: Race;
+  _id: string;
+  race: Race | string;
   name: string;
   description: string;
-  image: String;
+  image: string;
   experience: number;
   experience_percentage: number;
   level: number;
-  state: State;
-  inventory: Inventory;
-  equipment: Equipment;
+  state: State | string;
+  inventory: Inventory | string;
+  equipment: Equipment | string;
 };

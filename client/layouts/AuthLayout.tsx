@@ -14,7 +14,7 @@ const AuthLayout: NextComponentType<AppContext, AppProps, Props> = ({ children }
   return (
     <MainLayout>
       <H1Logo />
-      <MainContainer className="justify-center bg-gradient-to-r from-[#5a3d27] to-[#eb9e67]">
+      <MainContainer className="justify-center bg-gradient-to-r from-[#5a3d27] to-[#eb9e67] py-3">
         <Image
           width={1920}
           height={1080}

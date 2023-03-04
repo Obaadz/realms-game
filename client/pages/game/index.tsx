@@ -1,12 +1,9 @@
 import axios, { AxiosResponse } from "axios";
 import { NextPage, NextPageContext } from "next";
-import { useRouter } from "next/router";
-import React, { useEffect } from "react";
 import { ERROR_MESSAGES } from "../../types/enums";
 import { User } from "../../types/user";
 import getCookiesObjectFromString from "../../utils/getCookiesObjectFromString";
-
-const BACKEND_URL = process.env.BACKEND_URL as string;
+import { BACKEND_URL } from "../_app";
 
 type Props = {
   isLoggedIn: boolean;
@@ -14,13 +11,6 @@ type Props = {
 };
 
 const Game: NextPage<Props> = ({ isLoggedIn, isUserHasCharacter }) => {
-  const router = useRouter();
-
-  useEffect(() => {
-    if (isLoggedIn === false) router.replace("/auth/login");
-    else if (isUserHasCharacter === false) router.replace("/game/select-character");
-  }, []);
-
   return <div>Game</div>;
 };
 
@@ -46,16 +36,16 @@ export async function getServerSideProps(ctx: NextPageContext) {
 
     if (!data.isUserHasCharacter)
       return {
-        props: { isLoggedIn: true, isUserHasCharacter: !data.isUserHasCharacter },
+        props: { isLoggedIn: true },
         redirect: {
-          destination: "/game/select-character",
+          destination: "/",
         },
       };
 
     return { props: { isLoggedIn: true, isUserHasCharacter: true } };
   } catch (err: any) {
     return {
-      props: { isLoggedIn: false },
+      props: {},
       redirect: {
         destination: "/auth/login",
       },
