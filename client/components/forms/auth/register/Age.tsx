@@ -3,7 +3,9 @@ import { AppContext, AppProps } from "next/app";
 import { useEffect } from "react";
 import { UseFormRegister, FieldError, UseFormClearErrors } from "react-hook-form";
 import { User } from "../../../../types/user";
+import handleInputOnlyNumber from "../../../../utils/handleInputOnlyNumber";
 import ErrorSpan from "../../../ErrorSpan";
+import Image from "next/image";
 
 type Props = {
   register: UseFormRegister<Partial<User>>;
@@ -27,13 +29,14 @@ const Age: NextComponentType<AppContext, AppProps, Props> = ({
   }, []);
 
   return (
-    <>
+    <div className="relative py-1 px-2 2xl:px-4 2xl:py-2">
       <input
         type="number"
+        // dir="ltr"
         inputMode="numeric"
         pattern="[0-9]+"
         placeholder="العمر"
-        className="rounded-md bg-[#D4B4A3] py-1 px-2 text-[#171718] placeholder:text-[#171718aa] focus:outline-none"
+        className="bg-transparent py-1 px-2 text-[#262631] placeholder:text-right placeholder:text-[#262631] focus:outline-none"
         {...register("age", {
           required: "العمر مطلوب",
           valueAsNumber: true,
@@ -44,16 +47,17 @@ const Age: NextComponentType<AppContext, AppProps, Props> = ({
         })}
         onChange={() => clearErrors("serverError" as any)}
       />
-
+      <Image
+        priority={true}
+        src="/images/auth_email_button.png"
+        alt="a bg"
+        width={1920}
+        height={1080}
+        className="pointer-events-none absolute right-0 top-0 -z-10 h-full w-full"
+      />
       {<ErrorSpan error={ageError} />}
-    </>
+    </div>
   );
 };
-
-function handleInputOnlyNumber(e: any) {
-  if (Number.isNaN(e?.target?.valueAsNumber)) {
-    e.target.value = "";
-  }
-}
 
 export default Age;

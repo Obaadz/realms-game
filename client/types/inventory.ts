@@ -2,9 +2,8 @@ import { Character } from "./character";
 import { Item } from "./item";
 
 export type Inventory = {
-  max: number;
-  character: Character;
-  items: { quantity: Number; item: Item }[];
+  _id: string;
+  items: { quantity: Number; item: Item | string }[];
+  character?: Character | string;
+  max?: number;
 };
-
-export interface IInventoryDocument extends Document, Inventory {}

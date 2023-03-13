@@ -5,8 +5,8 @@ export type Item = {
   name: string;
   description: String;
   effect: effect;
-  type: String;
-  icon: String;
+  type: string;
+  icon: string;
 };
 
 export interface IItemDocument extends Document, Item {}

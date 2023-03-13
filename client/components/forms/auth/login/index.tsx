@@ -5,12 +5,12 @@ import { useRouter } from "next/router";
 import { useForm } from "react-hook-form";
 import { ERROR_MESSAGES } from "../../../../types/enums";
 import { User } from "../../../../types/user";
-import Button from "../../../Button";
 import ErrorSpan from "../../../ErrorSpan";
 import Email from "../Email";
 import Link from "../Link";
 import Password from "../Password";
-import AuthForm from "../AuthForm";
+import CustomForm from "../../CustomForm";
+import CustomButton from "../CustomButton";
 
 const BACKEND_URL = process.env.BACKEND_URL as string;
 
@@ -28,7 +28,7 @@ const LoginForm: NextComponentType<AppContext, AppProps, Props> = () => {
   } = useForm<Partial<User>>();
 
   return (
-    <AuthForm
+    <CustomForm
       handleSubmit={handleSubmit(async (userForm) => {
         try {
           console.info("BEFORE RESPONSE");
@@ -62,8 +62,13 @@ const LoginForm: NextComponentType<AppContext, AppProps, Props> = () => {
       />
       {(errors as any)?.serverError && <ErrorSpan error={(errors as any).serverError} />}
       <Link href="register">حساب جديد</Link>
-      <Button isDisabled={isSubmitting}>دخول</Button>
-    </AuthForm>
+      <CustomButton
+        isDisabled={isSubmitting}
+        className="text-[#BE6E36] hover:text-[#aa5f29]"
+      >
+        دخول
+      </CustomButton>
+    </CustomForm>
   );
 };
 
