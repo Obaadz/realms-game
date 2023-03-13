@@ -9,7 +9,7 @@ type Props = {
 const H2: NextComponentType<AppContext, AppProps, Props> = ({ children, className }) => {
   return (
     <h2
-      className={`select-none text-xl text-[#B5B1B8] drop-shadow-border sm:text-2xl md:text-4xl lg:text-6xl 2xl:text-7xl ${
+      className={`select-none text-2xl text-[#B5B1B8] md:text-3xl 2xl:text-6xl ${
         className ? className : ""
       }`}
     >

@@ -27,6 +27,26 @@ const btnLists: { [key: string]: any } = {
       </Button>
     </>
   ),
+  items: (
+    <>
+      <Button className="w-64">
+        <Link href="/dashboard/items/create">انشاء غرض</Link>
+      </Button>
+      <Button className="w-64">
+        <Link href="/dashboard/items">عرض الاغراض</Link>
+      </Button>
+    </>
+  ),
+  buildings: (
+    <>
+      <Button className="w-64">
+        <Link href="/dashboard/buildings/create">انشاء مبنى</Link>
+      </Button>
+      <Button className="w-64">
+        <Link href="/dashboard/buildings">عرض المباني</Link>
+      </Button>
+    </>
+  ),
 };
 
 const Home: NextPage<Props> = ({ dbUser }) => {

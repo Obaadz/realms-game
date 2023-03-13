@@ -55,10 +55,10 @@ const RaceCreateForm: NextComponentType<AppContext, AppProps, Props> = () => {
           />
           <BaseState
             register={register}
-            baseStateError={(errors.base_state as any)?.attack}
+            baseStateError={(errors.base_state as any)?.magic}
             clearErrors={clearErrors}
-            baseState="attack"
-            placeholder="هجوم"
+            baseState="ride_speed"
+            placeholder="سرعة الركوب"
           />
         </div>
         <div className="flex gap-3">
@@ -66,15 +66,31 @@ const RaceCreateForm: NextComponentType<AppContext, AppProps, Props> = () => {
             register={register}
             baseStateError={(errors.base_state as any)?.defense}
             clearErrors={clearErrors}
-            baseState="defense"
-            placeholder="دفاع"
+            baseState="physical_defense"
+            placeholder="دفاع بدني"
           />
           <BaseState
             register={register}
             baseStateError={(errors.base_state as any)?.magic}
             clearErrors={clearErrors}
-            baseState="magic"
-            placeholder="سحر"
+            baseState="magic_attack"
+            placeholder="هجوم سحري"
+          />
+        </div>
+        <div className="flex gap-3">
+          <BaseState
+            register={register}
+            baseStateError={(errors.base_state as any)?.defense}
+            clearErrors={clearErrors}
+            baseState="magic_defense"
+            placeholder="دفاع سحري"
+          />
+          <BaseState
+            register={register}
+            baseStateError={(errors.base_state as any)?.attack}
+            clearErrors={clearErrors}
+            baseState="physical_attack"
+            placeholder="هجوم بدني"
           />
         </div>
       </div>

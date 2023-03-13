@@ -15,7 +15,7 @@ const CustomForm: NextComponentType<AppContext, AppProps, Props> = ({
 }) => {
   return (
     <form
-      className={`text-md grid gap-4 lg:text-xl 2xl:text-3xl ${
+      className={`text-md grid gap-4 xl:text-xl 2xl:text-3xl ${
         className ? className : ""
       }`}
       onSubmit={handleSubmit}

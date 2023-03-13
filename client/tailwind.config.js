@@ -5,7 +5,7 @@ module.exports = {
     extend: {
       backgroundImage: {
         game: "url('/images/game_bg3.png')",
-        auth: "url('/images/auth_bg.png')",
+        auth: "url('/images/auth_bg_final.png')",
         dvd: "url('/images/dvd.png')",
       },
       fontFamily: {
