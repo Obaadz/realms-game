@@ -1,5 +1,8 @@
 import axios, { AxiosResponse } from "axios";
 import { NextPage, NextPageContext } from "next";
+import GameMenu from "../../components/game/game_menu";
+import TopMenu from "../../components/game/top_menu";
+import MainLayout from "../../layouts/game/MainLayout";
 import { ERROR_MESSAGES } from "../../types/enums";
 import { User } from "../../types/user";
 import getCookiesObjectFromString from "../../utils/getCookiesObjectFromString";
@@ -11,7 +14,12 @@ type Props = {
 };
 
 const Game: NextPage<Props> = ({ isLoggedIn, isUserHasCharacter }) => {
-  return <div>Game</div>;
+  return (
+    <MainLayout>
+      <TopMenu />
+      <GameMenu />
+    </MainLayout>
+  );
 };
 
 export default Game;
@@ -25,24 +33,17 @@ export async function getServerSideProps(ctx: NextPageContext) {
     const cookies = getCookiesObjectFromString(cookiesString);
 
     if (!cookies.token) throw new Error(ERROR_MESSAGES.NOT_LOGGED_IN);
-    const { data }: AxiosResponse<Partial<User & { isUserHasCharacter: boolean }>> =
-      await axios.post(
-        `${BACKEND_URL}/v1/users`,
-        {
-          token: cookies.token,
-        },
-        { params: { isUserHasCharacter: 1 } }
-      );
 
-    if (!data.isUserHasCharacter)
-      return {
-        props: { isLoggedIn: true },
-        redirect: {
-          destination: "/",
+    const { data }: AxiosResponse<Partial<User>> = await axios.get(
+      `${BACKEND_URL}/v1/users/me`,
+      {
+        headers: {
+          Authorization: `Bearer ${cookies.token}`,
         },
-      };
+      }
+    );
 
-    return { props: { isLoggedIn: true, isUserHasCharacter: true } };
+    return { props: { isLoggedIn: true } };
   } catch (err: any) {
     return {
       props: {},

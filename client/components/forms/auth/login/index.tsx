@@ -41,6 +41,7 @@ const LoginForm: NextComponentType<AppContext, AppProps, Props> = () => {
               withCredentials: true,
             }
           );
+          console.log(response);
           console.info("AFTER RESPONSE");
 
           await router.replace("/game");
