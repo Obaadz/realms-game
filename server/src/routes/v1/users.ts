@@ -4,6 +4,7 @@ import { jwtAuthExpress } from "../../middleware/jwtAuth";
 
 const usersRoutes = express.Router();
 
+usersRoutes.get("/users/me", jwtAuthExpress, UserController.get);
 usersRoutes.get("/users/:id", jwtAuthExpress, UserController.get);
 usersRoutes.post("/users/login", UserController.login);
 usersRoutes.post("/users/register", UserController.register);
